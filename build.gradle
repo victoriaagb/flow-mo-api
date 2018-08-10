@@ -1,0 +1,65 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.0.4.RELEASE'
+	id "io.spring.dependency-management" version "1.0.6.RELEASE"
+	id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'war'
+}
+
+springBoot {
+	mainClassName = 'com.flow.mo.api.FlowMoApiApplication'
+	buildInfo {
+		properties {
+			artifact = 'flow-mo-api'
+			version = '0.1.0'
+			group = 'com.flow.mo.api'
+			name = 'flow-mo-api'
+		}
+	}
+
+}
+
+
+jar {
+	enabled = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    
+    compile("junit:junit")
+   	compile("org.springframework.boot:spring-boot-starter-test")
+   	
+   	testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat");
+    
+}
