@@ -1,0 +1,9 @@
+{
+	"id":"123456789",
+	"name":"move_name",
+	"tags":["descriptive_tags"],
+	"description":"move_description",
+	"type":"video | image | text",
+	"url":"cloud_storage_url",
+	"fav": "true | false"
+}

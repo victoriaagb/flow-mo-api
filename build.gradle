@@ -1,13 +1,4 @@
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
-    }
-}
-
 plugins {
 	id 'org.springframework.boot' version '2.0.4.RELEASE'
 	id "io.spring.dependency-management" version "1.0.6.RELEASE"
@@ -30,7 +21,6 @@ springBoot {
 
 }
 
-
 jar {
 	enabled = true
 }
@@ -39,16 +29,14 @@ repositories {
     mavenCentral()
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
-}
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+dependencyManagement {
+  imports {
+      mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
+  }
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -57,9 +45,23 @@ dependencies {
     compile("junit:junit")
    	compile("org.springframework.boot:spring-boot-starter-test")
    	
+   	compile("com.amazonaws:aws-java-sdk-s3")
+   	
    	testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat");
     
+}
+
+task bootDebug(type: Exec){
+	group = 'custom'
+    description = 'customized tasks'
+	commandLine './gradlew bootRun --debug-jvm'
+}
+
+task killDaemon(type: Exec){
+	group = 'custom'
+    description = 'customized tasks'
+	commandLine './gradlew --stop'
 }

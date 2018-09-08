@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @EnableCaching
-@ComponentScan("com.flow.mow.api")
+@ComponentScan("com.flow.mo.api")
 @SpringBootApplication
 public class FlowMoApiApplication extends org.springframework.boot.web.servlet.support.SpringBootServletInitializer{
 	
