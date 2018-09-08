@@ -5,3 +5,4 @@ gradle/
 .settings/
 bin/
 build/
+src/main/resources/application.properties
