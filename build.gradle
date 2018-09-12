@@ -1,67 +1,41 @@
-
-plugins {
-	id 'org.springframework.boot' version '2.0.4.RELEASE'
-	id "io.spring.dependency-management" version "1.0.6.RELEASE"
-	id 'java'
-    id 'eclipse'
-    id 'idea'
-    id 'war'
-}
-
-springBoot {
-	mainClassName = 'com.flow.mo.api.FlowMoApiApplication'
-	buildInfo {
-		properties {
-			artifact = 'flow-mo-api'
-			version = '0.1.0'
-			group = 'com.flow.mo.api'
-			name = 'flow-mo-api'
-		}
+buildscript {
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
 	}
-
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
-jar {
-	enabled = true
-}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.fow.mo.api'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 dependencyManagement {
-  imports {
-      mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
-  }
+    imports {
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
+    }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	compile("com.amazonaws:aws-java-sdk-s3")
+    testCompile("junit:junit")
     
-    compile("junit:junit")
-   	compile("org.springframework.boot:spring-boot-starter-test")
-   	
-   	compile("com.amazonaws:aws-java-sdk-s3")
-   	
-   	testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat");
-    
-}
-
-task bootDebug(type: Exec){
-	group = 'custom'
-    description = 'customized tasks'
-	commandLine './gradlew bootRun --debug-jvm'
-}
-
-task killDaemon(type: Exec){
-	group = 'custom'
-    description = 'customized tasks'
-	commandLine './gradlew --stop'
+    compile('org.apache.commons:commons-lang3:3.6')
 }
