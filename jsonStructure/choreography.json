@@ -1,0 +1,9 @@
+{
+	"id":"123456789",
+	"name":"choreography_name",
+	"tags": ["descriptive_tags", "array_of_strings"],
+	"description": "choreography_description",
+	"items_id": ["array_of_moves_, _combinations_id"],
+	"comments":["array of strings for each item there is"],
+	"url": "cloud_storage_url"
+}

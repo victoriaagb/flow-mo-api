@@ -5,5 +5,5 @@
 	"description":"move_description",
 	"type":"video | image | text",
 	"url":"cloud_storage_url",
-	"fav": "true | false"
+	"favorite": "true | false"
 }

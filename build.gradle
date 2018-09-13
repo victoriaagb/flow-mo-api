@@ -39,3 +39,15 @@ dependencies {
     
     compile('org.apache.commons:commons-lang3:3.6')
 }
+
+task debugRun (dependsOn:bootRun){
+	group = 'application'
+	description = 'Debugs this project as a Spring Boot application.'
+	gradle.taskGraph.whenReady { graph ->
+        if (graph.hasTask(debugRun)) {
+            bootRun {
+                debug = true
+            }
+        }
+    }
+}

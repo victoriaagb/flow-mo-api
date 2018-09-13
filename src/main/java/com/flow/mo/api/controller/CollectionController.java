@@ -17,25 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.flow.mo.api.dao.MovesRepository;
-import com.flow.mo.api.model.repertory.Move;
+import com.flow.mo.api.model.collection.Move;
 
 @RestController
 @RequestMapping("/repertory")
-public class RepertoryController {
+public class CollectionController {
 	
-	private static Logger logger = LoggerFactory.getLogger(RepertoryController.class);
+	private static Logger logger = LoggerFactory.getLogger(CollectionController.class);
 	
 	private MovesRepository movesRepository;
 	
 	@Autowired
-	RepertoryController(MovesRepository movesRepository) {
+	CollectionController(MovesRepository movesRepository) {
         this.movesRepository = movesRepository;
     }
 	
 	@PostMapping("/moves")
     public ResponseEntity<Move> postMove(@RequestBody Move move) {
 		ResponseEntity<Move> response = null;
-        move.setId(ObjectId.get());
+		if (move.getId() == null) {
+			//move.setId(ObjectId.get());
+		}
         response = new ResponseEntity<Move>(movesRepository.save(move), HttpStatus.OK);
         return response;
     }

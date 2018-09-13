@@ -3,7 +3,7 @@
 	"name":"combo_name",
 	"tags": ["descriptive_tags", "array_of_strings"],
 	"description":"combo_description",
-	"moves":["array_of_moves_id"],
+	"moves_id":["array_of_moves_id"],
 	"url":"cloud_storage_url",
-	"fav": "true | false"
+	"favorite": "true | false"
 }
