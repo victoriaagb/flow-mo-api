@@ -2,5 +2,5 @@
 	"id":"12345678",
 	"collectionName":"collection_name",
 	"combinations_id":["array_combo_ids'"],
-	"moves":["array_moves_id"]
+	"moves_id":["array_moves_id"]
 }
