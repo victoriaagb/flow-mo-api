@@ -18,34 +18,35 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.flow.mo.api.dao.MovesRepository;
 import com.flow.mo.api.model.collection.Move;
+import com.flow.mo.api.service.CollectionService;
 
 @RestController
-@RequestMapping("/repertory")
+@RequestMapping("/collection")
 public class CollectionController {
 	
 	private static Logger logger = LoggerFactory.getLogger(CollectionController.class);
 	
-	private MovesRepository movesRepository;
-	
 	@Autowired
-	CollectionController(MovesRepository movesRepository) {
-        this.movesRepository = movesRepository;
-    }
+	private CollectionService collectionService;
 	
 	@PostMapping("/moves")
     public ResponseEntity<Move> postMove(@RequestBody Move move) {
 		ResponseEntity<Move> response = null;
+		Move updatedMove = null;
 		if (move.getId() == null) {
-			//move.setId(ObjectId.get());
+			updatedMove = collectionService.createNewMove(move);
 		}
-        response = new ResponseEntity<Move>(movesRepository.save(move), HttpStatus.OK);
+		else {
+			updatedMove = collectionService.updateMove(move);
+		}
+        response = new ResponseEntity<Move>(updatedMove, HttpStatus.OK);
         return response;
     }
 	
 	@GetMapping("/moves")
-    public ResponseEntity<Move> getMoveByName(@RequestParam String moveName) {
+    public ResponseEntity<Move> getMoveByName(@RequestParam String moveId) {
 		ResponseEntity<Move> response= null;
-		Move move = movesRepository.findByName(moveName);
+		Move move = collectionService.getMoveById(moveId);
 		response = new ResponseEntity<Move>(move, HttpStatus.OK);
         return response;
     }
