@@ -4,12 +4,11 @@
 	"person": {
 		"first_name": "user_first_name",
 		"email": "user_email",
-		"phone_number": "user_phone"
-	},
-	"collections": [{
-		"collectionName":"collection_name",
-		"combinations_id":["array_combo_ids'"],
-		"moves":["array_moves_id"]
-	}],
-	"choreographies": ["array_choreographies_id"]
+		"phone_number": "user_phone",
+		"collections": [{
+			"id":"collection_id",
+			"name":"collection_name"
+		}],
+		"choreographies": ["array_choreographies_id"]
+	}
 }
