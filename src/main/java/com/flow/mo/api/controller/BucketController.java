@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.flow.mo.api.service.AmazonClient;
+import com.flow.mo.api.adaptor.AmazonClient;
 
 @RestController
 @RequestMapping("/storage")

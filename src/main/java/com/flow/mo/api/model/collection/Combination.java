@@ -1,31 +1,35 @@
 package com.flow.mo.api.model.collection;
 
 import java.util.List;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@Document(collection="moves")
-public class Move {
+@Document(collection="combinations")
+public class Combination {
 	
 	@Id
 	private String id;
-	
+
 	@Field("collection_id")
-	@JsonProperty("collection_id")
 	private String collectionId;
+	
+	@DBRef
+	@Field("moves_id")
+	private List<Move> moves;
 	
 	private String name;
 	
 	private List<String> tags = null;
 	
 	private String description;
-	
-	private String type;
 	
 	private String url;
 	
@@ -35,7 +39,7 @@ public class Move {
 	 * No args constructor for use in serialization
 	 * 
 	 */
-	public Move() {
+	public Combination() {
 	}
 
 	/**
@@ -49,14 +53,14 @@ public class Move {
 	 * @param type
 	 * @param url
 	 */
-	public Move(String id, String collectionId, String name, List<String> tags, String description, String type, String url, Boolean favorite) {
+	public Combination(String id, String collectionId, List<Move> moves, String name, List<String> tags, String description, String url, Boolean favorite) {
 		super();
 		this.id = id;
 		this.collectionId=collectionId;
+		this.moves= moves;
 		this.name = name;
 		this.tags = tags;
 		this.description = description;
-		this.type = type;
 		this.url = url;
 		this.favorite = favorite;
 	}
@@ -75,6 +79,14 @@ public class Move {
 
 	public void setCollectionId(String collectionId) {
 		this.collectionId = collectionId;
+	}
+
+	public List<Move> getMoves() {
+		return moves;
+	}
+
+	public void setMoves(List<Move> moves) {
+		this.moves = moves;
 	}
 
 	public String getName() {
@@ -101,14 +113,6 @@ public class Move {
 		this.description = description;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getUrl() {
 		return url;
 	}
@@ -127,7 +131,7 @@ public class Move {
 	
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this).append("name", name).append("tags", tags).append("description", description).append("type", type).append("url", url).append("favorite", favorite).toString();
+		return new ToStringBuilder(this).append("name", name).append("tags", tags).append("description", description).append("moves", moves).append("url", url).append("favorite", favorite).toString();
 	}
 
 }
