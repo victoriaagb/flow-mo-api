@@ -26,7 +26,7 @@ public class Person {
 	@JsonProperty("phone_number")
 	private String phoneNumber;
 	
-	@Indexed
+	@Indexed(unique = true)
 	private String email;
 	
 	private List<Collection> collections;

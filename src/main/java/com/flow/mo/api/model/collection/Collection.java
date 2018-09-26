@@ -1,22 +1,16 @@
 package com.flow.mo.api.model.collection;
 
 import java.util.List;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Collection {
 	
 	@Id
-	@Field("collection_id")
 	@JsonProperty("collection_id")
 	private String collectionId;
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.flow.mo.api.dao.MovesRepository;
+import com.flow.mo.api.model.collection.Combination;
 import com.flow.mo.api.model.collection.Move;
 import com.flow.mo.api.service.CollectionService;
 
@@ -44,10 +45,32 @@ public class CollectionController {
     }
 	
 	@GetMapping("/moves")
-    public ResponseEntity<Move> getMoveByName(@RequestParam String moveId) {
+    public ResponseEntity<Move> getMove(@RequestParam String moveId) {
 		ResponseEntity<Move> response= null;
 		Move move = collectionService.getMoveById(moveId);
 		response = new ResponseEntity<Move>(move, HttpStatus.OK);
+        return response;
+    }
+	
+	@PostMapping("/combinations")
+    public ResponseEntity<Combination> postCombo(@RequestBody Combination combo) {
+		ResponseEntity<Combination> response = null;
+		Combination updatedCombo = null;
+		if (combo.getId() == null) {
+			updatedCombo = collectionService.createNewCombo(combo);
+		}
+		else {
+			updatedCombo = collectionService.updateCombo(combo);
+		}
+        response = new ResponseEntity<Combination>(updatedCombo, HttpStatus.OK);
+        return response;
+    }
+	
+	@GetMapping("/combinations")
+    public ResponseEntity<Combination> getCombo(@RequestParam String comboId) {
+		ResponseEntity<Combination> response= null;
+		Combination combo= collectionService.getComboById(comboId);
+		response = new ResponseEntity<Combination>(combo, HttpStatus.OK);
         return response;
     }
 }
